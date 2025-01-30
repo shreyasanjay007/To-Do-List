@@ -1,6 +1,9 @@
 const container = document.getElementById("container")
 const taskScreen = document.getElementById("task-screen")
 const addButton = document.getElementById("btn")
+const todos = document.createElement('div')
+todos.id = 'todos'
+container.appendChild(todos)
 
 addButton.addEventListener('click',()=>{
     const taskBar = document.createElement('div')
@@ -10,28 +13,34 @@ addButton.addEventListener('click',()=>{
                             <div class="task-screen-value" >${taskScreen.value}</div>
                          </div>
 
-                         <div class="taskbar-inner-div2" ><img src="/assets/close.png" width="18px" class="close" /></div>`
+                         <div class="taskbar-inner-div2" ><img src="/assets/dustbin.png" width="18px" class="close" /></div>`
 
-    container.appendChild(taskBar)
+    todos.appendChild(taskBar)
     taskScreen.value = ""
     // console.log(document.getElementsByClassName('taskbar-inner-div1'))
 
-    for(let i=0; i<container.children.length-2; i++){
-        console.log()
-        const td = document.getElementsByClassName('tick-div')[i]
-        td.addEventListener('click',()=>{
-            if(td.innerHTML === ""){
-                td.innerHTML = '✔️'
+    
+    
+        const tickButton = taskBar.querySelector('.tick-div')
+        const taskValue = taskBar.querySelector('.task-screen-value')
+        tickButton.addEventListener('click',()=>{
+            if(tickButton.innerHTML === ""){
+                tickButton.innerHTML = '✔️'
             }else{
-                td.innerHTML = ""
+                tickButton.innerHTML = ""
             }
-            // document.getElementsByClassName('task-screen-value')[0].style.textDecoration = 'line-through'
-            document.getElementsByClassName('task-screen-value')[i].classList.toggle('toggle-text')
+            taskValue.classList.toggle('toggle-text')
+            tickButton.classList.toggle('toggle-tick-div')
+        })
+
+        const closeButton =taskBar.querySelector('.close')
+        closeButton.addEventListener('click',()=>{
+            todos.removeChild(taskBar)
         })
     }
 
     // console.log()
-})
+)
 
 
 // const tick = document.getElementsByClassName('tick-div')[0]
